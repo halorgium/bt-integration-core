@@ -32,6 +32,8 @@
       - 100 transaction approved... etc
 
 - recurring transactions are an attribute of other kinds of transactions
+- no transparent redirect with a refund
+  - or deleting a customer
 
 || Example of API
 t = Braintree::GatewayTransaction.new
@@ -42,3 +44,6 @@ response = t.authorize(5)
 t.authorize(5)
 t.response.raw
 t.response.transaction_id
+
+| implementing
+- url_path: required
