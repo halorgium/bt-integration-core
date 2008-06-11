@@ -1,0 +1,7 @@
+h1. Braintree Integration Core
+
+This gem is the core gem that can be used to interact with the Braintree API.
+
+h2. See Also
+
+ * "ActiveMerchant":http://activemerchant.org
