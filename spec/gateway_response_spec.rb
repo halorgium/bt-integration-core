@@ -1,10 +1,5 @@
+require File.join(File.dirname(__FILE__), 'spec_helper')
 
-# Time to add your specs!
-# http://rspec.info/
-describe "Place your specs here" do
-  
-  it "find this spec in spec directory" do
-    violated "Be sure to write your specs"
-  end
-  
+describe Braintree::GatewayResponse do
+  it { Braintree::GatewayResponse.should_not be_nil }
 end
