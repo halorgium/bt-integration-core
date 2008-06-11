@@ -1,0 +1,44 @@
+| BT Gem API
+- Braintree:
+  - GatewayRequest
+    - Transaction: can be recurring
+      - sale
+      - refund
+      - credit
+      - update
+      - authorization
+      - capture
+      - void
+      - update
+      - customer vault
+      - recurring billing
+        - add to plan: requires transaction
+        - remove from plan: does not require transaction
+    - Query
+      - Customer Vault
+      - Transaction
+  - GatewayResponse
+    - response: from the gateway (Network Merchants)
+      - 1 approved
+      - 2 declined
+      - 3 error
+    - response text
+    - auth code: from bank
+    - transaction id
+    - avs response: 20 different responses
+    - cvv response: bunch of different responses
+    - order id: what customer passes in
+    - response code: (from issuing bank)
+      - 100 transaction approved... etc
+
+- recurring transactions are an attribute of other kinds of transactions
+
+|| Example of API
+t = Braintree::GatewayTransaction.new
+t.customer_vault(id)
+t.add_to_plan(:monthly) # pass the plan name
+response = t.authorize(5)
+         -or-
+t.authorize(5)
+t.response.raw
+t.response.transaction_id
