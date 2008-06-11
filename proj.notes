@@ -47,3 +47,11 @@ t.response.transaction_id
 
 | implementing
 - url_path: required
+
+| Note
+- Transparent Redirect:
+  - keys / values are inserted into a form
+  - not posted directly
+  - consequence:
+    - transmit might not be called on a GatewayRequest object
+    - same for transaction
