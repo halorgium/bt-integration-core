@@ -45,8 +45,22 @@ t.authorize(5)
 t.response.raw
 t.response.transaction_id
 
-| implementing
-- url_path: required
+g = Braintree::Gateway.new(username, password)
+c = Braintree::Card.new(
+  :ccnumber => '1234567890123456',
+  :ccexp    => '1010')
+t = Braintree::Transaction.new(
+  :account => c)
+t.sale(100)
+t.store_customer_in_vault(key_to_use)
+response = g.post(t) if t.valid?
+
+| The Plan
+- make it work for 'sale'
+- don't over design
+- write specs
+- hit actual service (write integ file)
+- simple validations
 
 | Note
 - Transparent Redirect:
@@ -54,4 +68,6 @@ t.response.transaction_id
   - not posted directly
   - consequence:
     - transmit might not be called on a GatewayRequest object
+    - instead used to populate form
     - same for transaction
+

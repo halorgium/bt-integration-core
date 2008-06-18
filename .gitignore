@@ -1,2 +1,3 @@
 *.DS_Store
 *~
+do_transaction.rb

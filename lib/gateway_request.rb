@@ -1,46 +1,25 @@
 module Braintree
   class GatewayRequest
-    # code to make the post
-    # steal from virtual_terminal
+    attr_accessor :attributes, :path
 
-    URL_BASE = "https://secure.braintreepaymentgateway.com"
-
-    attr_accessor :attributes, :time, :current_time, :variables, :query_string, :url_base, :url_path, :response
-
-    def initialize(attributes = nil)
-      self.attributes = attributes.nil? ? { } : attributes
-      attributes.each { |k,v| self.send("#{k}=", v) } unless attributes.nil?
-      set_variables_to_query_string if self.attributes.include?(:variables)
+    def initialize(attrs = {})
+      self.attributes = attrs
     end
 
-    def send_request
-      uri = URI.parse self.url
-      server  = Net::HTTP.new uri.host, uri.port
-      server.use_ssl = uri.scheme == 'https'
-      server.verify_mode = OpenSSL::SSL::VERIFY_NONE
+#     class << self
+#       # provide a class level method which gives method access to the variables hash
+#       # it should allow aliasing
+#       # it should return self, for chaining method calls together
+#       def bt_variable(name, options = {})
+#         meth = name.to_sym
+#         define_method(meth) do |val|
+#           variables[meth] = val
+#           self
+#         end
+#         alias_method(options[:alias].to_sym, meth) if options[:alias]
+#       end
+#     end
 
-      # use POST instead of GET
-      self.response = server.post uri.path, uri.query
-    end
-
-    def time; current_time.strftime("%Y%m%d%H%m%S") end
-    
-    def full_uri; "#{url_path}?#{query_string}" end
-
-    def url_base; @url_base || URL_BASE end
-
-    def url_uri; "#{url_base}/#{url_path}" end
-
-    def url; "#{url_uri}?#{query_string}" end
-
-    private
-    # each value of the variables is changed to a string
-    def set_variables_to_query_string
-      self.variables.delete_if { |key, value| value.nil? || value.to_s.strip == "" }
-      string_variables = self.variables.to_a.collect! { |pair| 
-        pair[0] == "quick_query" ? pair[1] : pair.join("=")}
-      self.query_string = string_variables.join("&")
-      self.query_string << "&username=#{BRAINTREE[:username]}&password=#{BRAINTREE[:password]}"
-    end
+#    def time; @time ||= Time.now.getutc.strftime("%Y%m%d%H%m%S") end
   end
 end

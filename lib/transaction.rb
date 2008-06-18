@@ -1,32 +1,21 @@
 module Braintree
     class Transaction < GatewayRequest
-    # methods which transmit info
-    # validate state before transmit
-    # validated conditions may vary depending on type (method used)
-      def initialize(args = nil)
+      attr_accessor :payment_details
+
+      # methods which transmit info
+      # validate state before transmit
+      # validated conditions may vary depending on type (method used)
+      def initialize(attrs = {})
         super
-        self.variables = {} unless self.variables
+        self.path = "api/transact.php"
       end
 
-      # provide a class level method which gives method access to the variables hash
-      # it should allow aliasing
-      # it should return self, for chaining method calls together
-      class << self
-        def bt_variable(name, options = {})
-          meth = name.to_sym
-          define_method(meth) do |val|
-            variables[meth] = val
-            self
-          end
-          alias_method(options[:alias].to_sym, meth) if options[:alias]
-        end
-      end
-      bt_variable :ccnumber, :alias => :card_number
-      bt_variable :ccexp,    :alias => :expiration
-      bt_variable :checkname,    :alias => :check_name
+#       bt_variable :ccnumber, :alias => :card_number
+#       bt_variable :ccexp,    :alias => :expiration
+#       bt_variable :checkname,    :alias => :check_name
 
       def sale
-        variables[:type] = 'sale'
+#        variables[:type] = 'sale'
 # ccnumber (required)
 # ccexp (required) Format: MMYY
 # checkname (required)

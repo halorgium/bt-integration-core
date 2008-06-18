@@ -1,0 +1,55 @@
+/Users/ja/bt/bt-integration-core/lib/
+  braintree.rb
+  gateway.rb
+  gateway_request.rb
+  gateway_response.rb
+  query.rb
+  transaction.rb
+
+/Users/ja/bt/bt-integration-core/spec/
+  gateway_request_spec.rb
+  gateway_spec.rb
+  gateway_response_spec.rb
+  query_spec.rb
+  spec.opts
+  spec_helper.rb
+  transaction_spec.rb
+
+/Users/ja/bt/virtual-terminal/app/models/braintree/
+  gateway_request.rb
+  query.rb
+  transaction.rb
+
+/Users/ja/bt/
+  api/
+  braintree-example-rails/
+    config/
+      environments/
+      initializers/
+      boot.rb
+      database.yml
+      environment.rb
+      example.braintree.yml
+      routes.rb
+    app/
+      models/
+        braintree/
+          gateway_request.rb
+          gateway_response.rb
+      controllers/
+        application.rb
+        carts_controller.rb
+        orders_controller.rb
+        payments_controller.rb
+        products_controller.rb
+        sessions_controller.rb
+        users_controller.rb
+  braintree-marketing-rails/
+  braintree-radiant/
+  braintree-utili-tool/
+    utili_tool.rb
+  bt-integration-core/
+  system-scripts/
+  teh_future/
+  virtual-terminal/
+  braintree.notes
