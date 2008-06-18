@@ -75,3 +75,16 @@ response = g.post(t) if t.valid?
 - h = HashWithTranslationTable.new({:card_number => :ccnumber})
 - h[:card_number] would not be found
 - but then it would check h[tt[:card_number]]
+
+| module HattrAccessor
+- all attributes are stored in hash
+- may be aliased
+
+| module GroupedAccessor
+- accessors created as normal
+- grouped_accessor :attributes, :one, :two
+  - provides attributes method
+    - returns {:one => val, :two => val2}
+  - keep track of keys in @attributes
+  - aliasable
+- flatten if value.respond_to? :attributes

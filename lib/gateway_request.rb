@@ -14,6 +14,11 @@ module Braintree
       end
     end
 
+    def account=(a)
+      attributes[:account] = a
+      flatten(:account)
+    end
+
 #     class << self
 #       # provide a class level method which gives method access to the variables hash
 #       # it should allow aliasing

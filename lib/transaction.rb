@@ -14,11 +14,6 @@ module Braintree
 #       bt_variable :ccexp,    :alias => :expiration
 #       bt_variable :checkname,    :alias => :check_name
 
-      def account=(a)
-        attributes[:account] = a
-        flatten(:account)
-      end
-
       def sale
         attributes[:type] = 'sale'
 # ccnumber (required)

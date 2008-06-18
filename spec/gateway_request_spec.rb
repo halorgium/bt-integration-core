@@ -21,4 +21,11 @@ describe Braintree::GatewayRequest do
       @request.attributes.should_not have_key(:merge_me)
     end
   end
+  
+  describe 'account=' do
+    it "should call flatten" do
+      @request.should_receive(:flatten).with(:account)
+      @request.account = @m
+    end
+  end
 end
