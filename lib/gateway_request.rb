@@ -3,7 +3,15 @@ module Braintree
     attr_accessor :attributes, :path
 
     def initialize(attrs = {})
-      self.attributes = attrs
+      self.attributes = attrs.dup
+      flatten(:account)
+    end
+
+    def flatten(key)
+      if attributes[key]
+        attributes.merge!(attributes[key].attributes)
+        attributes.delete(key)
+      end
     end
 
 #     class << self

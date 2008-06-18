@@ -71,3 +71,7 @@ response = g.post(t) if t.valid?
     - instead used to populate form
     - same for transaction
 
+| HashWithTranslationTable
+- h = HashWithTranslationTable.new({:card_number => :ccnumber})
+- h[:card_number] would not be found
+- but then it would check h[tt[:card_number]]

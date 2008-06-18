@@ -22,12 +22,6 @@ module Braintree
       # use POST instead of GET
       self.last_response = server.post uri.path, uri.query
     end
-# query_string
-# url
-# - url_uri
-#   - url_base
-#   - url_path
-# - query_string
 
     def time; Time.now.getutc.strftime("%Y%m%d%H%m%S") end
     
@@ -42,7 +36,7 @@ module Braintree
     def query_string(transaction)
       #variables[:time] = time
       string_variables = transaction.attributes.to_a.map do |pair| 
-        if pair[1].nil || pair.to_s.strip == ""
+        if pair[1].nil? || pair.to_s.strip == ""
           nil
         elsif pair[0] == "quick_query"
           pair[1] 
@@ -51,7 +45,9 @@ module Braintree
         end
       end
       string_variables.compact!
-      "&username=#@username&password=#@password" + string_variables.join("&")
+      string_variables << "username=#@username"
+      string_variables << "password=#@password"
+      string_variables.join("&")
     end
   end
 end
