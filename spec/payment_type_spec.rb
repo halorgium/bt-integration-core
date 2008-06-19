@@ -9,4 +9,9 @@ describe Braintree::PaymentType, "initialize" do
     @pt.firstname.should == 'koopa'
     @pt.lastname.should  == 'troopa'
   end
+
+  it "should make all attributes available through the attrubutes method" do
+    @pt.attributes[:firstname].should == 'koopa'
+    @pt.attributes.should have_key(:lastname)
+  end
 end

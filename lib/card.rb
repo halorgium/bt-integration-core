@@ -1,14 +1,14 @@
 module Braintree
   class Card < PaymentType
     # required
-    attr_accessor :ccnumber, :ccexp
+    grouped_accessor :attributes, {:ccnumber => :number, :ccexp => :expiration}
 
     # optional (recommended)
-    attr_accessor :cvv
+    grouped_accessor :attributes, :cvv
 
     def valid?
-      ccnumber && ccnumber.to_s =~ /^\d{16}$/ &&
-        ccexp && ccexp.to_s =~ /^\d{4}$/
+      number && number.to_s =~ /^\d{16}$/ &&
+        expiration && expiration.to_s =~ /^\d{4}$/
     end
   end
 end
