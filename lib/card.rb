@@ -7,8 +7,15 @@ module Braintree
     grouped_accessor :attributes, :cvv
 
     def valid?
-      number && number.to_s =~ /^\d{16}$/ &&
-        expiration && expiration.to_s =~ /^\d{4}$/
+      valid_number? && valid_expiration?
+    end
+    
+    def valid_number?
+      number && number.to_s =~ /^\d{16}$/
+    end
+
+    def valid_expiration?
+      expiration && expiration.to_s =~ /^\d{4}$/
     end
   end
 end
