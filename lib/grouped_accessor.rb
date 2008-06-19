@@ -13,7 +13,7 @@ module GroupedAccessor
     attr_accessor name
     alias_method(alias_by, name) if alias_by
     alias_method("#{alias_by}=", "#{name}=") if alias_by
-    var_name = "@@#{group}_group_accessor"
+    var_name = "@#{group}_group_accessor"
     class_eval <<-END_EVAL
       if defined? #{var_name}
           #{var_name} << name
@@ -21,6 +21,6 @@ module GroupedAccessor
         #{var_name} = [name]
       end
     END_EVAL
-    class_eval "def #{group}; h = {}; #{var_name}.each { |attr| h[attr] = send(attr) }; h; end"
+    class_eval "def #{group}; h = {}; self.class.instance_variable_get(\"#{var_name}\").each { |attr| h[attr] = send(attr) }; h; end"
   end
 end
