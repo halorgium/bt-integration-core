@@ -15,7 +15,7 @@ module GroupedAccessor
     alias_method("#{alias_by}=", "#{name}=") if alias_by
     var_name = "@#{group}_group_accessor"
     class_eval <<-END_EVAL
-      if defined? #{var_name}
+      if #{var_name}
           #{var_name} << name
       else
         #{var_name} = [name]
@@ -25,10 +25,19 @@ module GroupedAccessor
       def #{group}
         self.class.accessors_grouped_by(#{group.inspect}).inject({}) { |h,attr| h[attr] = send(attr); h }
       end
-METHOD_DEF
+    METHOD_DEF
   end
 
   def accessors_grouped_by(group)
     instance_variable_get("@#{group}_group_accessor")
+  end
+
+  # when a class is using grouped_accessor, we need to copy the groups to the child.
+  # note that this limits the possibilities of reopening a parent class to add more grouped accessors
+  def inherited(subclass)
+    instance_variables.grep(/^@\w+_group_accessor$/) do |v|
+      subclass.instance_variable_set(v, instance_variable_get(v).clone)
+    end
+    super
   end
 end

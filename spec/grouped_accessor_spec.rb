@@ -53,6 +53,9 @@ describe GroupedAccessor, '.grouped_accessor' do
   it "subclasses should have parent accumulators" do
     lambda {@child.attributes}.should_not raise_error
   end
+  it "subclasses should have parent accessors stored in accumulators" do
+    @child.attributes.should have_key(:attribute)
+  end
   it "parent classes should not have child accessors" do
     lambda {@obj.other}.should raise_error(NoMethodError)
   end
