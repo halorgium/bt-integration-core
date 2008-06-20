@@ -9,5 +9,14 @@ describe Braintree::GatewayRequest do
 
   it { @request.attributes[:orderid].should == 123 }
   it { @request.attributes[:amount].should == 1_000_000 }
-  it { @request.attributes[:one].should == 1 }
+  
+  it "should flatten account object" do
+    @request.attributes[:one].should == 1
+  end
+  it "should turn recurring billing plans into proper SKU format" do
+    @request.add_recurring_billing('monthly')
+    @request.add_recurring_billing('weekly')
+    @request.attributes['product_sku_1'].should == 'monthly'
+    @request.attributes['product_sku_2'].should == 'weekly'
+  end
 end
