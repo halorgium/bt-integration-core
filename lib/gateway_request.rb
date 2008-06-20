@@ -1,38 +1,23 @@
+require 'grouped_accessor'
 module Braintree
   class GatewayRequest
-    attr_accessor :attributes, :path
+    extend GroupedAccessor
+    attr_accessor :path
+    grouped_accessor :attributes, :account, :orderid, :amount
 
     def initialize(attrs = {})
-      self.attributes = attrs.dup
-      flatten(:account)
+      attrs.each{ |k,v| send("#{k}=", v) }
     end
 
-    def flatten(key)
-      if attributes[key]
-        attributes.merge!(attributes[key].attributes)
-        attributes.delete(key)
+    alias_method :attributes_of_this_instance, :attributes
+    def attributes
+      a = attributes_of_this_instance
+      if a[:account].respond_to?(:attributes)
+        a.merge!(a[:account].attributes)
+        a.delete(:account)
       end
+      a
     end
-
-    def account=(a)
-      attributes[:account] = a
-      flatten(:account)
-    end
-
-#     class << self
-#       # provide a class level method which gives method access to the variables hash
-#       # it should allow aliasing
-#       # it should return self, for chaining method calls together
-#       def bt_variable(name, options = {})
-#         meth = name.to_sym
-#         define_method(meth) do |val|
-#           variables[meth] = val
-#           self
-#         end
-#         alias_method(options[:alias].to_sym, meth) if options[:alias]
-#       end
-#     end
-
 #    def time; @time ||= Time.now.getutc.strftime("%Y%m%d%H%m%S") end
   end
 end

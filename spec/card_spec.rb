@@ -4,6 +4,9 @@ describe Braintree::Card do
   it "should inherit from PaymentType" do
     Braintree::Card.new.should be_a_kind_of(Braintree::PaymentType)
   end
+  it "should default payment to creditcard" do
+    Braintree::Card.new.payment.should == 'creditcard'
+  end
 end
 
 describe Braintree::Card, 'validation' do

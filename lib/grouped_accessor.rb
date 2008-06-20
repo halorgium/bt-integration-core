@@ -21,6 +21,14 @@ module GroupedAccessor
         #{var_name} = [name]
       end
     END_EVAL
-    class_eval "def #{group}; h = {}; self.class.instance_variable_get(\"#{var_name}\").each { |attr| h[attr] = send(attr) }; h; end"
+    class_eval <<-METHOD_DEF
+      def #{group}
+        self.class.accessors_grouped_by(#{group.inspect}).inject({}) { |h,attr| h[attr] = send(attr); h }
+      end
+METHOD_DEF
+  end
+
+  def accessors_grouped_by(group)
+    instance_variable_get("@#{group}_group_accessor")
   end
 end

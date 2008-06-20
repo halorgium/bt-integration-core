@@ -1,5 +1,6 @@
 module Braintree
     class Transaction < GatewayRequest
+      grouped_accessor :attributes, :amount
       attr_accessor :payment_details
 
       # methods which transmit info
@@ -10,19 +11,8 @@ module Braintree
         self.path = "api/transact.php"
       end
 
-#       bt_variable :ccnumber, :alias => :card_number
-#       bt_variable :ccexp,    :alias => :expiration
-#       bt_variable :checkname,    :alias => :check_name
-
       def sale
         attributes[:type] = 'sale'
-# ccnumber (required)
-# ccexp (required) Format: MMYY
-# checkname (required)
-# checkaba (required)
-# checkaccount (required)
-# account_holder_type (required) Format: business / personal
-# account_type (required) Format: checking / savings
 # amount (required) Format: x.xx
 # cvv (recommended)
 # ipaddress (recommended) Format: xxx.xxx.xxx.xxx

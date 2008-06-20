@@ -23,10 +23,10 @@ describe GroupedAccessor, '.grouped_accessor' do
     @obj.attribute.should == :h4x0rz
   end
   it "should accumulate names in variable named after the group" do
-    TestGroupedAccessor.instance_variable_get("@attributes_group_accessor").should == [:attribute]
+    TestGroupedAccessor.accessors_grouped_by(:attributes).should == [:attribute]
   end
   it "should also work for more than one accessor" do
-    TestGroupedAccessor.instance_variable_get("@professions_group_accessor").should == [:teacher, :programmer]
+    TestGroupedAccessor.accessors_grouped_by(:professions).should == [:teacher, :programmer]
   end
   it "should provide accessors for the groups which return hashes" do
     @obj.attribute = 'hello'
