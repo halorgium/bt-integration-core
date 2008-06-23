@@ -1,11 +1,16 @@
-# -*- coding: undecided -*-
+require 'grouped_accessor'
 module Braintree
   class Query < GatewayRequest
+    extend GroupedAccessor
     URL_PATH = '/api/query.php'
+    
+    grouped_accessor(:attributes, 
+                     :email, :last_name, :start_date, :end_date, :condition, :transaction_type, :action_type, :report_type,
+                     {:orderid => :order_id, :cc_number => :card_number, :transaction_id => :transaction})
 
     def initialize(args = {})
       self.path = URL_PATH
-      super
+      args.each{ |k,v| send("#{k}=", v) }
     end
 
 # email (recommended)

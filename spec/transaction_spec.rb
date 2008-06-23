@@ -6,20 +6,21 @@ end
 
 describe Braintree::Transaction do
   before(:each) do
-    @transaction = Braintree::Transaction.new
+    @account = stub("PaymentMethod", :attributes => {:one => 1})
+    @initialize_params = {:orderid => 123, :amount => 1_000_000, :account => @account}
+    @transaction = Braintree::Transaction.new(@initialize_params)
   end
 
-#   describe 'ccnumber' do
-#     it "should set variables[:ccnumber]" do
-#       @transaction.ccnumber(1234)
-#       @transaction.variables[:ccnumber].should == 1234
-#     end
-#     it "should return self" do
-#       @transaction.ccnumber(1234).should be(@transaction)
-#     end
-#     it "should be aliased by card_number" do
-#       @transaction.card_number(1234)
-#       @transaction.variables[:ccnumber].should == 1234
-#     end
-#   end
+  it { @transaction.attributes[:orderid].should == 123 }
+  it { @transaction.attributes[:amount].should == 1_000_000 }
+  
+  it "should flatten account object" do
+    @transaction.attributes[:one].should == 1
+  end
+  it "should turn recurring billing plans into proper SKU format" do
+    @transaction.add_recurring_billing('monthly')
+    @transaction.add_recurring_billing('weekly')
+    @transaction.attributes['product_sku_1'].should == 'monthly'
+    @transaction.attributes['product_sku_2'].should == 'weekly'
+  end
 end
