@@ -88,3 +88,12 @@ response = g.post(t) if t.valid?
   - keep track of keys in @attributes
   - aliasable
 - flatten if value.respond_to? :attributes
+
+| Thinking of doing away with gateway_request
+- not too much similar between transaction and query
+- also, nice interface idea:
+  - gw = Gateway.new(uname, pw)
+  - t = gw.transaction(args)
+  - t.sale
+  - t would contain a reference to gw
+  - t would call gw.post, for example

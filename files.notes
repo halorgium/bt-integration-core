@@ -1,13 +1,16 @@
-/Users/ja/bt/bt-integration-core/lib/
-  bank_account.rb
-  braintree.rb
-  card.rb
-  gateway.rb
-  gateway_request.rb
-  gateway_response.rb
-  payment_type.rb
-  query.rb
-  transaction.rb
+/Users/ja/bt/bt-integration-core/
+  do_query.rb
+  do_transaction.rb
+  lib/
+    bank_account.rb
+    braintree.rb
+    card.rb
+    gateway.rb
+    gateway_request.rb
+    gateway_response.rb
+    payment_type.rb
+    query.rb
+    transaction.rb
 
 /Users/ja/bt/bt-integration-core/spec/
   bank_account_spec.rb

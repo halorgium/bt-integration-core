@@ -1,3 +1,4 @@
 *.DS_Store
 *~
 do_transaction.rb
+do_query.rb

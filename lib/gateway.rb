@@ -20,7 +20,8 @@ module Braintree
       server.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       # use POST instead of GET
-      self.last_response = server.post uri.path, uri.query
+      response = server.post uri.path, uri.query
+      self.last_response = Braintree::GatewayResponse.new(response.body)
     end
 
     def time; Time.now.getutc.strftime("%Y%m%d%H%m%S") end
