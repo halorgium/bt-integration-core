@@ -7,7 +7,7 @@ module Braintree
   class Gateway
     URL_BASE = "https://secure.braintreepaymentgateway.com"
 
-    attr_accessor :url_base, :last_response
+    attr_accessor :url_base, :last_response, :parsed_response
 
     def initialize(username, password)
       @username, @password = username, password
@@ -20,8 +20,8 @@ module Braintree
       server.verify_mode = OpenSSL::SSL::VERIFY_NONE
 
       # use POST instead of GET
-      response = server.post uri.path, uri.query
-      self.last_response = Braintree::GatewayResponse.new(response.body)
+      self.last_response = server.post uri.path, uri.query
+      return response_for(transaction)
     end
 
     def time; Time.now.getutc.strftime("%Y%m%d%H%m%S") end
@@ -49,6 +49,17 @@ module Braintree
       string_variables << "username=#@username"
       string_variables << "password=#@password"
       string_variables.join("&")
+    end
+    
+    def response_for(transaction)
+      case transaction
+      when Braintree::Query
+        self.parsed_response = Braintree::QueryResponse.new(last_response)
+      when Braintree::Transaction
+        self.parsed_response = Braintree::TransactionResponse.new(last_response)
+      else
+        raise "transaction type not supported"
+      end
     end
   end
 end

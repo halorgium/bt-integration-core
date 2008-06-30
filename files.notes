@@ -7,19 +7,23 @@
     card.rb
     gateway.rb
     gateway_request.rb
-    gateway_response.rb
+    grouped_accessor.rb
     payment_type.rb
     query.rb
+    query_response.rb
     transaction.rb
 
 /Users/ja/bt/bt-integration-core/spec/
   bank_account_spec.rb
   card_spec.rb
   gateway_request_spec.rb
-  gateway_response_spec.rb
   gateway_spec.rb
+  grouped_accessor_spec.rb
   payment_type_spec.rb
+  query_response_spec.rb
   query_spec.rb
+  spec.opts
+  spec_helper.rb
   transaction_spec.rb
 
 /Users/ja/bt/virtual-terminal/app/models/braintree/

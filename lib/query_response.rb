@@ -1,10 +1,11 @@
 require 'rexml/document'
 
 module Braintree
-  class GatewayResponse
-    attr_accessor :xml
-    def initialize(xml_response)
-      self.xml = xml_response
+  class QueryResponse
+    attr_accessor :http_response, :xml
+    def initialize(response)
+      @http_response = response
+      @xml = response.body
       @doc = REXML::Document.new(xml, :ignore_whitespace_nodes => :all, :compress_whitespace => :all)
     end
 
