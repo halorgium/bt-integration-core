@@ -12,6 +12,7 @@
     query.rb
     query_response.rb
     transaction.rb
+    transaction_response.rb
 
 /Users/ja/bt/bt-integration-core/spec/
   bank_account_spec.rb
@@ -24,6 +25,7 @@
   query_spec.rb
   spec.opts
   spec_helper.rb
+  transaction_response_spec.rb
   transaction_spec.rb
 
 /Users/ja/bt/virtual-terminal/app/models/braintree/
