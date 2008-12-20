@@ -6,5 +6,4 @@ rescue LoadError
   require 'spec'
 end
 
-$:.unshift(File.dirname(__FILE__) + '/../lib')
-require 'braintree'
+require File.dirname(__FILE__) + '/../lib/braintree'

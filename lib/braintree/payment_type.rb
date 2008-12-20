@@ -1,4 +1,4 @@
-require 'grouped_accessor'
+require 'braintree/grouped_accessor'
 module Braintree
   class PaymentType
     extend GroupedAccessor
